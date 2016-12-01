@@ -1,0 +1,19 @@
+{
+  "name": "atom-in-orbit",
+  "version": "0.0.0",
+  "engines": {
+    "node": ">=6.5.0"
+  },
+  "scripts": {
+    "build": "node ./scripts/build.js",
+    "release": "node ./scripts/release.js"
+  },
+  "devDependencies": {
+    "browserfs": "bolinfest/BrowserFS#894ee30a1188258851c6af94c6cc1a0085ce94b7",
+    "browserify": "13.1.1",
+    "chokidar": "1.6.1",
+    "fs-plus": "2.9.2",
+    "through": "2.3.8",
+    "watchify": "3.7.0"
+  }
+}

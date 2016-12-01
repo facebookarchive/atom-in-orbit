@@ -1,0 +1,11 @@
+--- /Users/mbolin/src/atom/src/atom-environment.coffee	2016-12-13 20:21:11.000000000 -0800
++++ scripts/patches/src/atom-environment.coffee	2016-12-13 20:16:37.000000000 -0800
+@@ -656,7 +656,7 @@
+   restoreWindowDimensions: ->
+     unless @windowDimensions? and @isValidDimensions(@windowDimensions)
+       @windowDimensions = @getDefaultWindowDimensions()
+-    @setWindowDimensions(@windowDimensions).then -> @windowDimensions
++    @setWindowDimensions(@windowDimensions).then => @windowDimensions
+ 
+   restoreWindowBackground: ->
+     if backgroundColor = window.localStorage.getItem('atom:window-background-color')

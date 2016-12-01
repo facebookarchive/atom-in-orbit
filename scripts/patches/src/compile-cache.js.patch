@@ -1,0 +1,47 @@
+--- /Users/mbolin/src/atom/src/compile-cache.js	2016-11-02 19:50:02.000000000 -0700
++++ scripts/patches/src/compile-cache.js	2016-12-13 20:16:37.000000000 -0800
+@@ -29,6 +29,8 @@
+   packageTranspilationRegistry.removeTranspilerConfigForPath(packagePath)
+ }
+ 
++exports.COMPILERS = COMPILERS
++
+ var cacheStats = {}
+ var cacheDirectory = null
+ 
+@@ -37,12 +39,13 @@
+   if (process.env.USER === 'root' && process.env.SUDO_USER && process.env.SUDO_USER !== process.env.USER) {
+     cacheDir = path.join(cacheDir, 'root')
+   }
+-  this.setCacheDirectory(cacheDir)
++  setCacheDirectory(cacheDir)
+ }
+ 
+-exports.setCacheDirectory = function (directory) {
++function setCacheDirectory (directory) {
+   cacheDirectory = directory
+ }
++exports.setCacheDirectory = setCacheDirectory
+ 
+ exports.getCacheDirectory = function () {
+   return cacheDirectory
+@@ -95,6 +98,7 @@
+   }
+   return sourceCode
+ }
++exports.compileFileAtPath = compileFileAtPath
+ 
+ function readCachedJavascript (relativeCachePath) {
+   var cachePath = path.join(cacheDirectory, relativeCachePath)
+@@ -206,6 +210,11 @@
+ }
+ 
+ Object.keys(COMPILERS).forEach(function (extension) {
++  // This will happen when run in a browser.
++  if (require.extensions == null) {
++    return;
++  }
++
+   var compiler = COMPILERS[extension]
+ 
+   Object.defineProperty(require.extensions, extension, {
