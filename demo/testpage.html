@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <script>
+  function updateStatus(message) {
+    console.error(message);
+    var status = document.createElement('div');
+    status.style.color = '#A00';
+    status.style.backgroundColor = 'white';
+    status.innerHTML = message;
+    document.body.appendChild(status);
+  }
+
+  function onAtomLoadError() {
+    updateStatus('Could not load atom.js. Check your console.');
+  }
+  </script>
+  <script src="atom-resources.js"></script>
+  <script src="atom.js" onerror="onAtomLoadError()"></script>
+  <script>
+  loadAtom(({atom, fs}) => {
+    // Adding a root will cause the tree-view to pop open once it loads.
+    atom.project.addPath(fs.getHomeDirectory());
+  });
+  </script>
+</body>
+</html>
